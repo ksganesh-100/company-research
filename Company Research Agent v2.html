@@ -143,6 +143,18 @@ Use a concise, business-like tone. Avoid speculation and unsupported generalizat
 
         const result = await response.json();
         const modelResponse = result?.candidates?.[0]?.content?.parts?.[0]?.text || "No response received.";
+
+        
+        // ✅ Configure marked to allow raw HTML rendering
+        marked.setOptions({
+          gfm: true,
+          breaks: true,
+          headerIds: false,
+          mangle: false
+        });
+
+        
+      // ✅ Render Markdown + embedded HTML (like tables)
         output.innerHTML = marked.parse(modelResponse);
       } catch (error) {
         console.error("Error:", error);
